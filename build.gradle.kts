@@ -1,9 +1,10 @@
 plugins {
     id("java-library")
+    `maven-publish`
 }
 
 group = "com.springwater.playerdata"
-version = "1.0.0"
+version = "1.0"
 
 repositories {
     mavenCentral()
@@ -28,4 +29,28 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/easybot-team/ez-playerdata")
+
+            credentials {
+                username = project.findProperty("gpr.user") as String?
+                    ?: System.getenv("USERNAME")
+
+                password = project.findProperty("gpr.key") as String?
+                    ?: System.getenv("TOKEN")
+            }
+        }
+    }
+
+    publications {
+        create<MavenPublication>("gpr") {
+            from(components["java"])
+        }
+    }
 }
