@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "com.springwater.playerdata"
-version = "1.0"
+version = "1.0-rc.0"
 
 repositories {
     mavenCentral()
